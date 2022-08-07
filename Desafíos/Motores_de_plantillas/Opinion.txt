@@ -1,0 +1,3 @@
+Motor de plantillas
+
+Escogo a PUG porque es fácil de implementar, me gusta su sintaxis es más fácil de entender y es más corto el código.
