@@ -1,0 +1,14 @@
+[
+  {
+    "title": "crypto",
+    "price": "5000",
+    "urlPicture": "7777",
+    "id": 1
+  },
+  {
+    "title": "Pepsi",
+    "price": "6000",
+    "urlPicture": "10101010",
+    "id": 2
+  }
+]

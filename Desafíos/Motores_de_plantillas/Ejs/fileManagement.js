@@ -152,7 +152,6 @@ class Container {
     try {
       let contents = await fs.promises.readFile(this.nameFile, "utf-8")
       return (contents = JSON.parse(contents))
-      // for (const iterator of contents) console.log(iterator)
     } catch (error) {
       console.log(error)
       console.log("No hay productos, debe agregar un producto")
