@@ -1,8 +1,0 @@
-[
-  {
-    "title": "crypto",
-    "price": "5000",
-    "urlPicture": "7777",
-    "id": 1
-  }
-]
