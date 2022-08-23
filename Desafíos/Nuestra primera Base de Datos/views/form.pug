@@ -1,0 +1,56 @@
+html
+    head 
+        title='Pug'
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous")
+        link(rel="stylesheet" href="./style.css")
+        script(src="/socket.io/socket.io.js") 
+    body
+        h1(class="text-center bg-primary p-4") WebSockets con Pug
+        br
+        br
+        h2(class="text-center") Agrega un producto
+        div(class="frameForm")
+            form(onsubmit="return addProduct(this)" class="text-center form")
+                |
+                input(type="text" id="title" placeholder="Título" class="mt-3 form-control")
+                input(type="text" id="price" placeholder="Precio" class="mt-3 form-control")
+                input(type="text" id="urlPicture" placeholder="Ruta de foto" class="mt-3 form-control")
+                |
+                input(type="submit" value="Ingresar producto" class="mt-3 btn btn-outline-primary")
+        |
+        br
+        br
+        h2(class="text-center") Productos
+        |
+        |
+        div(class="frameTable")
+            div(class="frameTable2 p-3")
+                table(class="table table-primary table-hover text-center")
+                    thead(class="table-info")
+                        tr 
+                            th Título
+                            th Precio 
+                            th Imagen
+                    tbody(id="products")
+        |
+        |
+        |
+        |
+        br
+        br
+        h2(class="text-center mb-4") Chat
+        |
+        |
+        div(class="frameFormChat")
+            form(onsubmit="return addText(this)" class="formChat")
+                |
+                input(class="form-control w-50" type="email" id="email" placeholder="Correo@electronico.com")
+                |
+                div(class="m-5" id="messages")
+                |
+                input(class="w-50 form-control" type="text" id="text" placeholder="Texto")
+                input(class="btn btn-outline-primary m-3" type="submit" value="Enviar mensaje")
+        |
+        |
+        |
+        script(src="/index.js") 
