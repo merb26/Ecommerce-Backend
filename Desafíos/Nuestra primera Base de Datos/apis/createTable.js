@@ -4,8 +4,9 @@ const createTable = (options, nameTable) => {
   knex.schema
     .createTable(nameTable, table => {
       table.increments("id")
-      table.string("name")
+      table.string("title")
       table.integer("price")
+      table.string("urlPicture")
     })
     .then(() => {
       console.log("table created")

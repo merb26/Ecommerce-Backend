@@ -1,50 +1,61 @@
 const express = require("express")
 const { Server: SERVER_HTTP } = require("http")
 const { Server: SERVER_IO } = require("socket.io")
-const Container = require("./apis/fileManagement")
-const ContainerChat = require("./apis/controllerChat")
+
+const Container = require("./controllers/knex")
+const { mariaDB, sqlite3 } = require("./apis/options")
 
 const app = express()
 const serverHttp = new SERVER_HTTP(app)
 const serverIO = new SERVER_IO(serverHttp)
 
-const containerProducts = new Container("products.txt")
-const containerChat = new ContainerChat("chat.txt")
-
+const containerProducts = new Container(mariaDB, "products")
+const containerChat = new Container(sqlite3, "messages")
 app.use(express.static("public"))
 
 app.get("/", (req, resp) => {
   resp.render("form")
 })
 
-serverIO.on("connection", async socket => {
+serverIO.on("connection", socket => {
   console.log("Usuario conectado: " + socket.id)
 
   /* -------------------------------------------------------------------------- */
   /*                         Ingresa y muestra productos                        */
   /* -------------------------------------------------------------------------- */
 
-  socket.on("productNew", async product => {
-    await containerProducts.save(product)
-    const products = await containerProducts.getAll()
-    serverIO.sockets.emit("products", products)
+  socket.on("productNew", product => {
+    containerProducts.save(product).then(() => {})
+    containerProducts
+      .getAll()
+      .then(rows => {
+        serverIO.sockets.emit("products", rows)
+      })
+      .catch(err => console.log(err))
   })
 
-  const products = await containerProducts.getAll()
-  socket.emit("products", products)
+  containerProducts
+    .getAll()
+    .then(rows => {
+      socket.emit("products", rows)
+    })
+    .catch(err => console.log(err))
 
   /* -------------------------------------------------------------------------- */
   /*                                    Chat                                    */
   /* -------------------------------------------------------------------------- */
 
-  socket.on("messageSent", async message => {
-    await containerChat.save(message)
-    const messages = await containerChat.getAll()
-    serverIO.sockets.emit("messages", messages)
+  socket.on("messageSent", message => {
+    containerChat.save(message).then(() => console.log("Message saved"))
+
+    containerChat.getAll().then(messages => {
+      serverIO.sockets.emit("messages", messages)
+    })
   })
 
-  const messages = await containerChat.getAll()
-  socket.emit("messages", messages)
+  containerChat.getAll().then(messages => {
+    socket.emit("messages", messages)
+  })
 
   socket.on("disconnect", () => {
     console.log("usuario desconectado: ", socket.id)

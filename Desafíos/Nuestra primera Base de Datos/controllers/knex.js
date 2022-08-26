@@ -1,35 +1,16 @@
 class Container {
   constructor(options, nameTable) {
-    this.options = options
     this.nameTable = nameTable
+    this.knex = require("knex")(options)
   }
 
-  knex = require("knex")(options)
-
   save = object => {
-    knex(this.nameTable)
-      .insert(object)
-      .then(() => console.log("data inserted"))
-      .catch(err => {
-        console.log(err)
-        throw err
-      })
-      .finally(() => knex.destroy())
+    return this.knex(this.nameTable).insert(object)
   }
 
   getAll = () => {
-    knex
-      .from(this.nameTable)
-      .select("*")
-      .then(rows => {
-        for (const row of rows) {
-          console.log(`${row["id"]} ${row["name"]} ${row["price"]}`)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        throw err
-      })
-      .finally(() => knex.destroy())
+    return this.knex.from(this.nameTable).select("*")
   }
 }
+
+module.exports = Container
