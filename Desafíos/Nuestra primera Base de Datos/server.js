@@ -4,6 +4,11 @@ const { Server: SERVER_IO } = require("socket.io")
 
 const Container = require("./controllers/knex")
 const { mariaDB, sqlite3 } = require("./apis/options")
+const createTableMariaDB = require("./apis/createTableMariaDB")
+const createTableSqlite3 = require("./apis/createTableSqlite3")
+
+// createTableMariaDB(mariaDB, "products")
+// createTableSqlite3(sqlite3, "messages")
 
 const app = express()
 const serverHttp = new SERVER_HTTP(app)
