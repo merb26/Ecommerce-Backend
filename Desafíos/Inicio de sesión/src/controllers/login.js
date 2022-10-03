@@ -16,7 +16,7 @@ const loginMongodb = {
     if (req.isAuthenticated()) {
       next()
     } else {
-      res.redirect("/login")
+      res.redirect("/")
     }
   },
   saveRegister: (req, res) => {
@@ -31,9 +31,8 @@ const loginMongodb = {
 
     res.render("login")
   },
-  passportLogin: (email, password, done) => {
-    console.log("passportLogin")
-    const users = container.getAll()
+  passportLogin: async (email, password, done) => {
+    const users = await container.getAll()
 
     const user = users.find(user => user.email === email)
 
@@ -51,8 +50,27 @@ const loginMongodb = {
 
     done(null, user)
   },
-  deserialize: (id, done) => {
-    const users = container.getAll()
+  passportSignup: async (req, username, password, done) => {
+    const users = await container.getAll()
+
+    let user = users.find(user => user.email === username)
+
+    if (user) {
+      console.log(`El usuario ${username} ya existe`)
+      return done(null, false, { message: "User already exists" })
+    }
+
+    let newUser = {
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
+      email: username,
+    }
+
+    const userMongoDB = await container.save(newUser)
+
+    return done(null, userMongoDB)
+  },
+  deserialize: async (id, done) => {
+    const users = await container.getAll()
     let user = users.find(user => user.id === id)
 
     done(null, user)

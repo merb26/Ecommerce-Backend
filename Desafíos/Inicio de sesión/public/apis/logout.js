@@ -1,3 +1,3 @@
 setTimeout(() => {
   location.replace("/")
-}, 2000)
+}, 3000)

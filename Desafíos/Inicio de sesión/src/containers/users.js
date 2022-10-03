@@ -4,11 +4,11 @@ class Container {
   async save(obj) {
     const user = new users(obj)
 
-    user.save()
+    return user.save()
   }
 
   async getAll() {
-    users.find({})
+    return users.find({})
   }
 }
 

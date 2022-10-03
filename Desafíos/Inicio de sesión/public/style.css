@@ -51,3 +51,10 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+.box-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

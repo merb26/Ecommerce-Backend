@@ -1,5 +1,5 @@
 const startSesion = e => {
-  const email = document.querySelector("#email").value
+  const email = document.querySelector("username").value
 
   let hasAEmail = false
 
