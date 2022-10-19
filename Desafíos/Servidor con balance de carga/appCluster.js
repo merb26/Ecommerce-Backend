@@ -59,17 +59,3 @@ if (cluster.isPrimary) {
 
   console.log(`Worker ${process.pid} started`)
 }
-
-// const express = require("express")
-
-// const app = express()
-
-// const port = parseInt(process.argv[2]) || 8085
-
-// app.get("/datos", (req, res) => {
-//
-// })
-
-// app.listen(port, function () {
-//   console.log(`Servidor escuchando en puerto ${port}`)
-// })

@@ -70,7 +70,7 @@ serverIO.on("connection", socket => {
 app.set("view engine", "pug")
 app.set("views", "./views")
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8081
 serverHttp.listen(PORT, err => {
   if (err) throw new Error(`Error en servidor ${err}`)
   console.log(`Running on Port: ${PORT}`)

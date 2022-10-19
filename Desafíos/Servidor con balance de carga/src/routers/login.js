@@ -37,6 +37,7 @@ routeLogin.get("/logout", async (req, res, next) => {
     if (err) {
       return next(err)
     }
+
     res.render("logout", { user })
   })
 })
@@ -45,6 +46,8 @@ routeLogin.get("/logout", async (req, res, next) => {
 /*                                  Registro                                  */
 /* -------------------------------------------------------------------------- */
 routeLogin.get("/register", (req, res) => {
+  console.log("Probando")
+
   res.render("register")
 })
 
