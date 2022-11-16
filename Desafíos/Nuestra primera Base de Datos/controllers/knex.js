@@ -13,4 +13,4 @@ class Container {
   }
 }
 
-export default Container
+module.exports = Container
