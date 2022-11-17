@@ -1,54 +1,17 @@
 const bcrypt = require("bcrypt")
 
 const { Container } = require("../containers/users")
+const { serviceLogin } = require("../services/login")
 
 const container = new Container()
 
 const loginMongodb = {
-  startSesion: (req, res) => {
-    const { name } = req.body
-
-    req.session.email = name.toLowerCase()
-
-    res.json("{user: ok}")
-  },
-  authentic: (req, res, next) => {
+  authentic: async (req, res, next) => {
     if (req.isAuthenticated()) {
       next()
     } else {
       res.redirect("/")
     }
-  },
-  saveRegister: (req, res) => {
-    const { email, password } = req.body
-
-    const user = {
-      email,
-      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
-    }
-
-    container.save(user)
-
-    res.render("login")
-  },
-  passportLogin: async (email, password, done) => {
-    const users = await container.getAll()
-
-    const user = users.find(user => user.email === email)
-
-    if (!user) {
-      console.log(`No existe el email ${email}`)
-      return done(null, false, { message: "User not found" })
-    }
-
-    const isValide = bcrypt.compareSync(password, user.password)
-    if (!isValide) {
-      console.log("Password incorrecto")
-
-      return done(null, false, { message: "Password incorrect" })
-    }
-
-    done(null, user)
   },
   passportSignup: async (req, username, password, done) => {
     const users = await container.getAll()
@@ -74,6 +37,40 @@ const loginMongodb = {
     let user = users.find(user => user.id === id)
 
     done(null, user)
+  },
+  getLogin: async (req, res) => {
+    serviceLogin.visualizeLogin(req)
+
+    res.render("login")
+  },
+  getIndex: (req, res) => {
+    const service = serviceLogin.visualizeIndex(req)
+
+    const { user, products } = service
+
+    res.render("index", { user, products })
+  },
+  getLogout: async (req, res, next) => {
+    const { user } = req
+
+    serviceLogin.signOff(req)
+
+    res.render("logout", { user })
+  },
+  getRegister: async (req, res) => {
+    serviceLogin.visualizeRegister
+
+    res.render("register")
+  },
+  getErrorSesion: (req, res) => {
+    serviceLogin.errorSesion
+
+    res.render("errorSesion")
+  },
+  getErrorRegister: (req, res) => {
+    serviceLogin.errorRegister
+
+    res.render("errorRegister")
   },
 }
 

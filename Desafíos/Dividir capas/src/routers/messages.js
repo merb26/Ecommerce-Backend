@@ -1,26 +1,14 @@
 const { Router } = require("express")
 
-const Container = require("../controllers/knex")
+const Container = require("../containers/knex")
 const { sqlite3 } = require("../apis/options")
-const { config } = require("../../config")
-const { loggerErr, loggerCons } = require("../apis/logger")
+const { controllerMessages } = require("../controllers/messages")
 
 const routerMessages = Router()
 
 const containerChat = new Container(sqlite3, "messages")
 
-routerMessages.get("/", async (req, res) => {
-  loggerCons.error(
-    { level: "error", url: `${req.hostname}:${config.PORT}${req.url}` },
-    "Ruta messages"
-  )
-  loggerErr.error(
-    { level: "error", url: `${req.hostname}:${config.PORT}${req.url}` },
-    "Ruta messages"
-  )
-
-  res.render("messages")
-})
+routerMessages.get("/", controllerMessages.getMessages)
 
 const connectServerIO = serverIO => {
   serverIO.on("connection", socket => {
