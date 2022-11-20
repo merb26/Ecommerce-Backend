@@ -1,7 +1,7 @@
-const { ProductsMongoDAO } = require("../dao/productsDao")
+const { FactoryProducts } = require("../factory-method/factoryProducts")
 const { loggerCons } = require("../apis/logger")
 
-const container = new ProductsMongoDAO()
+const container = new FactoryProducts().getProductsDAO()
 
 const productsService = {
   getAll: async () => {
