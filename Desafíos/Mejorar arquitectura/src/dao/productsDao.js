@@ -1,6 +1,7 @@
 const products = require("../models/products")
 const { Connection } = require("./connection")
 const { loggerCons } = require("../apis/logger")
+const { asDTO } = require("../dto/productDTO")
 
 class ProductsMongoDAO extends Connection {
   constructor() {
@@ -11,9 +12,11 @@ class ProductsMongoDAO extends Connection {
   async getAll() {
     this.connection.connection()
 
-    const productsDB = products.find({})
+    const productsDB = await products.find({})
 
-    return productsDB
+    const productsDTO = asDTO(productsDB)
+
+    return productsDTO
   }
 }
 
