@@ -1,9 +1,9 @@
-const { ProductsMongoDAO } = require("../dao/productsDao")
-const { Connection } = require("../dao/connection")
+const { ProductsMongoDAO } = require("../dao/productsMongoDao")
+const { Connection } = require("../dao/productsConnections")
 
 const dataBase = ["mongodb"]
 
-class FactoryProducts {
+class ProductsFactory {
   constructor() {
     switch (dataBase[0]) {
       case "mongodb":
@@ -23,4 +23,4 @@ class FactoryProducts {
   }
 }
 
-module.exports = { FactoryProducts }
+module.exports = { ProductsFactory }

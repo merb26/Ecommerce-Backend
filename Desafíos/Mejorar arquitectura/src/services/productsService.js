@@ -1,11 +1,11 @@
-const { FactoryProducts } = require("../factory-method/factoryProducts")
+const { RepoProducts } = require("../repository/products/productsRepo")
 const { loggerCons } = require("../apis/logger")
 
-const container = new FactoryProducts().getProductsDAO()
+const repository = new RepoProducts()
 
 const productsService = {
   getAll: async () => {
-    const products = await container.getAll()
+    const products = await repository.getAll()
     return products
   },
 }

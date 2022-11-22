@@ -18,7 +18,7 @@ const connDB = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
-      loggerCons.info("Connected database MongoDB")
+      loggerCons.info("Connected database Products MongoDB")
     } catch (error) {
       console.log(error)
     }
