@@ -77,3 +77,5 @@ app.get("*", async (req, res) => {
   )
   res.json({ message: "Ruta inexistente" })
 })
+
+module.exports = { app }

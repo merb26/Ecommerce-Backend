@@ -8,7 +8,7 @@ const axiosPOST = async (URL, data) => {
   return await axios.post(URL, data)
 }
 
-const axiosPUT = async data => {
+const axiosPUT = async (URL, data) => {
   return await axios.put(URL, data)
 }
 
