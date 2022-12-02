@@ -12,6 +12,15 @@ const productsService = {
     const result = await repository.add(product)
     return result
   },
+  update: async productReplaced => {
+    console.log(productReplaced)
+    const result = await repository.update(productReplaced)
+    return result
+  },
+  delete: async _id => {
+    const result = await repository.deleteById(_id)
+    return result
+  },
 }
 
 module.exports = { productsService }

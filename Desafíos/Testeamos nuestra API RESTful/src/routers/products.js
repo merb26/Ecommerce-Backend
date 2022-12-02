@@ -8,4 +8,7 @@ routerProducts.get("/", productsController.getProducts)
 
 routerProducts.post("/", productsController.addProduct)
 
+routerProducts.put("/", productsController.updateProduct)
+
+routerProducts.delete("/", productsController.deleteProductById)
 module.exports = { routerProducts }

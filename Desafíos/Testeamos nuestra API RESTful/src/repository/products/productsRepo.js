@@ -18,8 +18,18 @@ class RepoProducts {
   }
 
   async add(product) {
-    const productNew = await this.dao.add(product)
-    return productNew
+    const result = await this.dao.add(product)
+    return result
+  }
+
+  async update(productReplaced) {
+    const result = await this.dao.update(productReplaced)
+    return result
+  }
+
+  async deleteById(_id) {
+    const result = await this.dao.deleteById(_id)
+    return result
   }
 }
 

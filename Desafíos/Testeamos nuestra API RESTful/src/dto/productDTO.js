@@ -1,6 +1,6 @@
 class ProductDTO {
   constructor({ _id, name, description, code, urlPicture, price, stock }) {
-    this.id = _id
+    this._id = _id
     this.name = name
     this.description = description
     this.code = code

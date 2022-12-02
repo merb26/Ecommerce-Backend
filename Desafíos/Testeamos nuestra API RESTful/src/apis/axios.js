@@ -12,8 +12,8 @@ const axiosPUT = async data => {
   return await axios.put(URL, data)
 }
 
-const axiosDELETE = async data => {
-  return await axios.delete(URL, data)
+const axiosDELETE = async (URL, data) => {
+  return await axios.delete(URL, { data })
 }
 
 module.exports = { axiosGET, axiosPOST, axiosPUT, axiosDELETE }
